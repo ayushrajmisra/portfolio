@@ -1,0 +1,693 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    body, html {
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #F7F4EE !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    .font-body { font-family: 'Inter', sans-serif; }
+    .font-serif { font-family: 'Fraunces', serif; }
+    .font-mono-tag { font-family: 'JetBrains Mono', monospace; }
+
+    .ink { color: #201D1A; }
+    .muted { color: #6E6759; }
+    .teal { color: #0E6B64; }
+    .ochre { color: #B8792E; }
+
+    .badge-pill {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.05em;
+        color: #0E6B64;
+        border: 1px solid rgba(14,107,100,.35);
+        border-radius: 999px;
+        padding: 0.35rem 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .badge-pill .dot { width:6px; height:6px; border-radius:50%; background:#0E6B64; display:inline-block; }
+
+    .eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: #B8792E;
+        text-transform: uppercase;
+    }
+
+    .rule { height:1px; background: linear-gradient(90deg, rgba(32,29,26,.14), rgba(32,29,26,0)); }
+
+    .card {
+        background: #FFFFFF;
+        border: 1px solid #E7E1D6;
+        transition: box-shadow .3s ease, transform .3s ease;
+    }
+    .card:hover { box-shadow: 0 12px 30px -12px rgba(32,29,26,.12); transform: translateY(-2px); }
+
+    .honor-card {
+        background: #FFFFFF;
+        border: 1px solid #E7E1D6;
+        border-left: 3px solid #B8792E;
+        transition: box-shadow .3s ease, transform .3s ease;
+    }
+    .honor-card:hover { box-shadow: 0 12px 30px -12px rgba(184,121,46,.25); transform: translateY(-2px); }
+
+    .skill-chip {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #201D1A;
+        background: #FFFFFF;
+        border: 1px solid #E7E1D6;
+        border-radius: 10px;
+        padding: 0.6rem 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        transition: all .2s ease;
+    }
+    .skill-chip:hover { border-color: rgba(14,107,100,.5); transform: translateY(-2px); }
+    .skill-chip.tech:hover { border-color: rgba(184,121,46,.6); }
+
+    .skill-row {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.85rem 0.1rem;
+        border-bottom: 1px solid #E7E1D6;
+        font-size: 0.92rem;
+        color: #201D1A;
+        font-weight: 500;
+    }
+
+    .proj-card { background:#FFFFFF; border:1px solid #E7E1D6; border-radius: 16px; }
+    .tag-mini {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.66rem;
+        color: #6E6759;
+        background: #F7F4EE;
+        border: 1px solid #E7E1D6;
+        padding: 0.15rem 0.55rem;
+        border-radius: 6px;
+    }
+
+    @keyframes riseIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-rise { opacity: 0; animation: riseIn 0.7s cubic-bezier(.2,.7,.2,1) forwards; }
+    .hero-rise-1 { animation-delay: .05s; }
+    .hero-rise-2 { animation-delay: .18s; }
+    .hero-rise-3 { animation-delay: .32s; }
+    .hero-rise-4 { animation-delay: .46s; }
+    .hero-rise-5 { animation-delay: .6s; }
+    @media (prefers-reduced-motion: reduce) {
+        .hero-rise { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+
+    a:focus-visible, button:focus-visible {
+        outline: 2px solid #0E6B64 !important;
+        outline-offset: 2px !important;
+    }
+</style>
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'ivory': '#F7F4EE',
+                    'ink': '#201D1A',
+                    'muted': '#6E6759',
+                    'teal': '#0E6B64',
+                    'ochre': '#B8792E',
+                    'card-line': '#E7E1D6',
+                }
+            }
+        }
+    }
+</script>
+
+<div class="font-body bg-ivory ink overflow-x-hidden w-full min-h-screen">
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-ivory/90 backdrop-blur-md" style="border-bottom:1px solid #E7E1D6; box-shadow: 0 1px 0 rgba(184,121,46,.25);">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img src="https://portfolio.kartsho.com/wp-content/uploads/2026/09/AM-Logo-Sign.png" alt="Ayush Misra Signature Logo" style="height:44px!important;width:auto!important;max-height:44px!important;display:inline-block!important;">
+                    <div class="text-base sm:text-lg font-semibold tracking-wide">
+                        <span class="ink">Ayush Misra</span>
+                        <span class="ochre mx-1">·</span>
+                        <span class="muted text-xs sm:text-sm">Operations &amp; Product</span>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-7 text-sm font-medium">
+                    <a href="#home" class="muted hover:text-teal transition-colors">Home</a>
+                    <a href="#about" class="muted hover:text-teal transition-colors">About</a>
+                    <a href="#skills" class="muted hover:text-teal transition-colors">Skills</a>
+                    <a href="#projects" class="muted hover:text-teal transition-colors">Projects</a>
+                    <a href="#experience" class="muted hover:text-teal transition-colors">Experience</a>
+                    <a href="#contact" class="muted hover:text-teal transition-colors">Contact</a>
+                </div>
+
+                <div class="hidden md:block">
+                    <a href="#contact" class="text-white px-6 py-2.5 rounded-lg font-semibold hover:-translate-y-0.5 transition-all duration-300" style="background: linear-gradient(135deg, #0E6B64, #0A4F4A); box-shadow: 0 6px 16px -6px rgba(14,107,100,.45);">
+                        Hire Me
+                    </a>
+                </div>
+
+                <button class="md:hidden ink focus:outline-none" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <div class="md:hidden hidden mt-4 pb-6 border-t border-card-line pt-4" id="mobile-menu">
+                <div class="flex flex-col space-y-4 text-center">
+                    <a href="#home" class="mobile-link muted hover:text-teal transition-colors">Home</a>
+                    <a href="#about" class="mobile-link muted hover:text-teal transition-colors">About</a>
+                    <a href="#skills" class="mobile-link muted hover:text-teal transition-colors">Skills</a>
+                    <a href="#projects" class="mobile-link muted hover:text-teal transition-colors">Projects</a>
+                    <a href="#experience" class="mobile-link muted hover:text-teal transition-colors">Experience</a>
+                    <a href="#contact" class="mobile-link muted hover:text-teal transition-colors">Contact</a>
+                    <a href="#contact" class="mobile-link bg-teal text-white px-6 py-3 rounded-lg font-semibold w-3/4 mx-auto">
+                        Hire Me
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="min-h-screen flex items-center relative overflow-hidden pt-24">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-14 items-center">
+                <div class="space-y-7">
+                    <div class="hero-rise hero-rise-1 badge-pill"><span class="dot"></span> OPEN TO OPPORTUNITIES</div>
+
+                    <h1 class="hero-rise hero-rise-2 font-serif leading-[1.05] text-4xl sm:text-5xl lg:text-[3.2rem]">
+                        <span class="block ink">Operations that run smooth.</span>
+                        <span class="block teal italic">Products that ship.</span>
+                    </h1>
+
+                    <p class="hero-rise hero-rise-3 text-base sm:text-lg muted leading-relaxed max-w-xl">
+                        A dependable operations &amp; product professional — equally at home managing business compliance, HR, and digital marketing, and building hands-on with FlutterFlow, Firebase, and WordPress. BCA graduate, ready to contribute from day one.
+                    </p>
+
+                    <div class="hero-rise hero-rise-4 flex flex-col sm:flex-row gap-4">
+                        <a href="#contact" class="text-white px-8 py-3.5 rounded-lg font-semibold hover:-translate-y-1 transition-all duration-300 text-center" style="background: linear-gradient(135deg, #0E6B64, #0A4F4A); box-shadow: 0 8px 20px -6px rgba(14,107,100,.45);">
+                            Hire Me
+                        </a>
+                        <a href="https://drive.google.com/file/d/19g9GQXTimPtDmYLa_kMufHEI7R2HR06P/view?usp=sharing" target="_blank" class="border border-teal/50 teal px-8 py-3.5 rounded-lg font-semibold hover:bg-teal/5 transition-all duration-300 text-center">
+                            Download Résumé <i class="fas fa-arrow-up-right-from-square ml-2 text-xs"></i>
+                        </a>
+                        <a href="https://github.com/ayushrajmisra" target="_blank" class="flex items-center justify-center border border-card-line rounded-lg px-5 py-3.5 hover:border-ink/40 transition-all duration-300">
+                            <i class="fab fa-github text-xl ink"></i>
+                        </a>
+                    </div>
+
+                    <div class="hero-rise hero-rise-5 flex flex-wrap gap-x-8 gap-y-4 pt-6 border-t border-card-line">
+                        <div>
+                            <div class="font-mono-tag text-2xl font-bold ochre">100+</div>
+                            <div class="muted text-xs mt-1">Volunteers Led</div>
+                        </div>
+                        <div class="w-px bg-card-line hidden sm:block"></div>
+                        <div>
+                            <div class="font-mono-tag text-2xl font-bold teal">15%</div>
+                            <div class="muted text-xs mt-1">Engagement Growth</div>
+                        </div>
+                        <div class="w-px bg-card-line hidden sm:block"></div>
+                        <div>
+                            <div class="font-mono-tag text-2xl font-bold ochre">23+</div>
+                            <div class="muted text-xs mt-1">App Screens Built</div>
+                        </div>
+                        <div class="w-px bg-card-line hidden sm:block"></div>
+                        <div>
+                            <div class="font-mono-tag text-2xl font-bold teal">100%</div>
+                            <div class="muted text-xs mt-1">Data Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative mt-10 md:mt-0">
+                    <div class="relative w-full max-w-sm mx-auto">
+                        <div class="bg-white rounded-3xl shadow-xl p-5 sm:p-6">
+                            <img src="https://portfolio.kartsho.com/wp-content/uploads/2026/03/IMG_20260116_160439.jpg" alt="Ayush Misra" class="w-full h-auto object-contain rounded-xl" style="max-height:480px;">
+                        </div>
+                        <div class="absolute -bottom-6 -right-4 sm:-right-8 bg-white border border-card-line rounded-xl px-4 py-3 shadow-lg">
+                            <p class="font-mono-tag text-[0.63rem] teal tracking-wide">AVAILABLE FROM</p>
+                            <p class="font-mono-tag text-[0.63rem] muted">Immediate Joining</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center space-y-6">
+                <p class="eyebrow">Profile</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">A hybrid <span class="teal italic">operator</span> &amp; <span class="ochre italic">builder</span></h2>
+                <div class="rule w-24 mx-auto"></div>
+                <p class="muted leading-relaxed text-[17px]">
+                    I currently lead Operations &amp; Administration at a private company in Pratapgarh, U.P., where I handle business compliance, HR documentation, team coordination, and digital marketing. Alongside that, I contributed hands-on to building LawDalat — a legal-tech app — using FlutterFlow and Firebase, working alongside the founding team on UI/UX flows and authentication.
+                </p>
+                <p class="muted leading-relaxed text-[17px]">
+                    Outside work, I've led 100+ volunteers as NSS Cabinet Head, managed sustainability drives with GreenX, and coordinated a 200+ participant tech fest — the same follow-through I bring to any team or product I join.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-24 bg-white border-t border-card-line relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-14">
+                <p class="eyebrow mb-3">What I Bring</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">Two sides, <span class="teal italic">one person</span></h2>
+                <div class="rule w-24 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-x-16 gap-y-10 max-w-5xl mx-auto">
+                <div>
+                    <h3 class="font-serif text-xl mb-1 flex items-center gap-2"><i class="fas fa-building-columns teal"></i> Business &amp; Operations</h3>
+                    <div class="rule w-full mt-2 mb-1"></div>
+                    <div>
+                        <div class="skill-row"><i class="fas fa-file-contract teal w-5"></i><span>Business Compliance &amp; Documentation</span></div>
+                        <div class="skill-row"><i class="fas fa-people-group teal w-5"></i><span>Team Leadership &amp; Coordination</span></div>
+                        <div class="skill-row"><i class="fas fa-address-card teal w-5"></i><span>HR Documentation</span></div>
+                        <div class="skill-row"><i class="fas fa-hashtag teal w-5"></i><span>Social Media Management</span></div>
+                        <div class="skill-row"><i class="fas fa-palette teal w-5"></i><span>Content &amp; Design (Canva)</span></div>
+                        <div class="skill-row"><i class="fas fa-file-excel teal w-5"></i><span>MS Excel &amp; Office Suite</span></div>
+                        <div class="skill-row"><i class="fas fa-bullhorn teal w-5"></i><span>Digital Marketing</span></div>
+                        <div class="skill-row" style="border-bottom:none;"><i class="fas fa-wand-magic-sparkles teal w-5"></i><span>AI Tools (Claude &amp; ChatGPT)</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-serif text-xl mb-1 flex items-center gap-2"><i class="fas fa-code ochre"></i> Technical &amp; Product</h3>
+                    <div class="rule w-full mt-2 mb-1"></div>
+                    <div>
+                        <div class="skill-row"><i class="fas fa-mobile-screen-button ochre w-5"></i><span>FlutterFlow (App Development)</span></div>
+                        <div class="skill-row"><i class="fas fa-fire ochre w-5"></i><span>Firebase (Auth &amp; Firestore)</span></div>
+                        <div class="skill-row"><i class="fab fa-html5 ochre w-5"></i><span>HTML5 &amp; CSS3</span></div>
+                        <div class="skill-row"><i class="fab fa-wordpress ochre w-5"></i><span>WordPress &amp; Elementor</span></div>
+                        <div class="skill-row"><i class="fab fa-github ochre w-5"></i><span>GitHub &amp; Version Control</span></div>
+                        <div class="skill-row" style="border-bottom:none;"><i class="fas fa-pen-ruler ochre w-5"></i><span>UI/UX Design</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-24 relative z-10">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-14">
+                <p class="eyebrow mb-3">Selected Work</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">Projects</h2>
+                <div class="rule w-24 mx-auto mt-4"></div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="proj-card p-6 sm:p-8">
+                    <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+                        <h3 class="text-xl font-semibold ink">LegalTech Application MVP (LawDalat)</h3>
+                        <span class="tag-mini">JAN 2026 – JUL 2026</span>
+                    </div>
+                    <p class="muted text-sm leading-relaxed mb-4">
+                        Contributed to the development of a legal-tech application (LawDalat) using FlutterFlow and Firebase — built UI/UX flows and implemented user authentication, working alongside the founding team.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="tag-mini">Legal Research</span>
+                        <span class="tag-mini">Flutter</span>
+                        <span class="tag-mini">Firebase</span>
+                        <span class="tag-mini">UI/UX Design</span>
+                    </div>
+                    <p class="text-xs muted"><i class="fas fa-building mr-1"></i> Associated with Kartsho Solutions Pvt. Ltd.</p>
+                </div>
+
+                <div class="proj-card p-6 sm:p-8">
+                    <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+                        <h3 class="text-xl font-semibold ink">Company Website — Kartsho Solutions</h3>
+                        <span class="tag-mini">WORDPRESS</span>
+                    </div>
+                    <p class="muted text-sm leading-relaxed mb-4">
+                        Designed and built a fully responsive company website on WordPress &amp; Elementor — optimised for speed and search visibility.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="tag-mini">WordPress</span>
+                        <span class="tag-mini">Elementor</span>
+                        <span class="tag-mini">HTML5/CSS3</span>
+                        <span class="tag-mini">SEO</span>
+                    </div>
+                    <p class="text-xs muted"><i class="fas fa-building mr-1"></i> Associated with Kartsho Solutions Pvt. Ltd.</p>
+                </div>
+
+                <div class="proj-card p-6 sm:p-8">
+                    <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+                        <h3 class="text-xl font-semibold ink">Career Craft — AI Resume Analyzer</h3>
+                        <span class="tag-mini">FRONTEND PROTOTYPE</span>
+                    </div>
+                    <p class="muted text-sm leading-relaxed mb-4">
+                        Designed the responsive frontend for a resume-analysis platform, including Login/Signup interfaces with form-validation cues.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="tag-mini">HTML5</span>
+                        <span class="tag-mini">CSS3</span>
+                        <span class="tag-mini">JavaScript</span>
+                    </div>
+                    <p class="text-xs muted"><i class="fas fa-user mr-1"></i> Personal project</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="py-24 bg-white border-t border-card-line relative z-10">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-14">
+                <p class="eyebrow mb-3">Work History</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">Professional Experience</h2>
+                <div class="rule w-24 mx-auto mt-4"></div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="card rounded-2xl p-6 sm:p-8">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h3 class="text-xl font-semibold ink">Operations &amp; Administration Lead</h3>
+                        <span class="tag-mini">NOV 2025 – PRESENT</span>
+                    </div>
+                    <p class="muted text-sm mb-4">Kartsho Solutions Private Limited · Pratapgarh, Uttar Pradesh</p>
+                    <ul class="muted text-sm space-y-1.5 list-disc list-inside">
+                        <li>Managed end-to-end business compliance and documentation, including company registration (MCA) and GST registration &amp; filing</li>
+                        <li>Led and coordinated a team, defining task ownership and work processes across departments</li>
+                        <li>Handled HR documentation — drafted offer letters and appointment letters, and maintained employee records</li>
+                        <li>Managed social media accounts and created marketing collateral using Canva and MS Office</li>
+                        <li>Supported digital marketing initiatives to strengthen brand visibility and outreach</li>
+                    </ul>
+                </div>
+
+                <div class="card rounded-2xl p-6 sm:p-8">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h3 class="text-xl font-semibold ink">Communication &amp; Marketing Intern</h3>
+                        <span class="tag-mini">NOV 2024 – FEB 2025</span>
+                    </div>
+                    <p class="muted text-sm mb-4">HimalayanBuzz Admedia LLP · Dehradun</p>
+                    <ul class="muted text-sm space-y-1.5 list-disc list-inside">
+                        <li>Executed digital marketing strategies that contributed to a 15% increase in online engagement</li>
+                        <li>Assisted in drafting content and managing digital communication channels</li>
+                    </ul>
+                </div>
+
+                <div class="card rounded-2xl p-6 sm:p-8">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h3 class="text-xl font-semibold ink">Research &amp; Operations Intern</h3>
+                        <span class="tag-mini">ICSSR PROJECT</span>
+                    </div>
+                    <p class="muted text-sm mb-4">PM Krishi Sinchai Yojana</p>
+                    <ul class="muted text-sm space-y-1.5 list-disc list-inside">
+                        <li>Conducted data collection and analysis for government agricultural schemes, ensuring 100% data accuracy</li>
+                        <li>Managed documentation and generated detailed field reports for senior management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section id="leadership" class="py-24 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <p class="eyebrow mb-3">Community Impact</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">Leadership Experience</h2>
+                <div class="rule w-24 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-6">
+                <div class="card rounded-2xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4" style="background:rgba(14,107,100,.1);">
+                        <i class="fas fa-people-group text-2xl teal"></i>
+                    </div>
+                    <h4 class="font-semibold text-sm ink">Cabinet Head, NSS</h4>
+                    <p class="text-xs muted mt-2">Led 100+ volunteers · Plafthon: 1000+ kg waste collected · LOR received</p>
+                </div>
+                <div class="card rounded-2xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4" style="background:rgba(184,121,46,.12);">
+                        <i class="fas fa-leaf text-2xl ochre"></i>
+                    </div>
+                    <h4 class="font-semibold text-sm ink">Club Manager, Vibgyor GreenX</h4>
+                    <p class="text-xs muted mt-2">Sustainability initiatives &amp; documentation · LOR received</p>
+                </div>
+                <div class="card rounded-2xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4" style="background:rgba(14,107,100,.1);">
+                        <i class="fas fa-calendar-check text-2xl teal"></i>
+                    </div>
+                    <h4 class="font-semibold text-sm ink">Coordinator, Utkristh Tech Fest</h4>
+                    <p class="text-xs muted mt-2">Managed logistics &amp; scheduling for 200+ participants</p>
+                </div>
+                <div class="card rounded-2xl p-6 text-center">
+                    <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4" style="background:rgba(184,121,46,.12);">
+                        <i class="fas fa-scroll text-2xl ochre"></i>
+                    </div>
+                    <h4 class="font-semibold text-sm ink">Secretary, 'JAI' Youth Wing</h4>
+                    <p class="text-xs muted mt-2">Shri Nityanand Swami Jan Sewa Samiti (Reg.) — youth-led community initiatives</p>
+                </div>
+            </div>
+
+            <p class="text-center muted text-sm max-w-2xl mx-auto">
+                Also active in community cleanliness drives, including at Santla Devi Mandir, Dehradun.
+            </p>
+        </div>
+    </section>
+
+    <!-- HONORS -->
+    <section class="py-24 bg-white border-t border-card-line relative z-10">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-14">
+                <p class="eyebrow mb-3">Recognised For</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">Honors &amp; <span class="ochre italic">Recognition</span></h2>
+                <div class="rule w-24 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-5">
+                <div class="honor-card p-5 rounded-xl flex gap-4">
+                    <i class="fas fa-file-signature text-xl ochre mt-1"></i>
+                    <div>
+                        <h4 class="text-sm font-semibold ink">Letter of Recommendation — NSS Cabinet Head</h4>
+                        <p class="text-xs muted mt-1">Tula's Institute, Dehradun</p>
+                    </div>
+                </div>
+                <div class="honor-card p-5 rounded-xl flex gap-4">
+                    <i class="fas fa-file-signature text-xl ochre mt-1"></i>
+                    <div>
+                        <h4 class="text-sm font-semibold ink">Letter of Recommendation — Club Manager, GreenX</h4>
+                        <p class="text-xs muted mt-1">Tula's Institute, Dehradun</p>
+                    </div>
+                </div>
+                <div class="honor-card p-5 rounded-xl flex gap-4">
+                    <i class="fas fa-file-signature text-xl ochre mt-1"></i>
+                    <div>
+                        <h4 class="text-sm font-semibold ink">Letter of Recommendation — Discover Uttarakhand</h4>
+                        <p class="text-xs muted mt-1">For leading 'Plafthon' — a 24-hour plastic-free drive collecting 1000+ kg waste</p>
+                    </div>
+                </div>
+                <div class="honor-card p-5 rounded-xl flex gap-4">
+                    <i class="fas fa-award text-xl ochre mt-1"></i>
+                    <div>
+                        <h4 class="text-sm font-semibold ink">Volunteer of the Year — 2024</h4>
+                        <p class="text-xs muted mt-1">Conferred by the Governor of Uttarakhand at Governor House, Dehradun</p>
+                    </div>
+                </div>
+                <div class="honor-card p-5 rounded-xl flex gap-4">
+                    <i class="fas fa-award text-xl ochre mt-1"></i>
+                    <div>
+                        <h4 class="text-sm font-semibold ink">Community Excellence Award</h4>
+                        <p class="text-xs muted mt-1">2024 &amp; 2025</p>
+                    </div>
+                </div>
+                <div class="honor-card p-5 rounded-xl flex gap-4">
+                    <i class="fas fa-certificate text-xl ochre mt-1"></i>
+                    <div>
+                        <h4 class="text-sm font-semibold ink">Certificate of Achievement — See View Seva Trust</h4>
+                        <p class="text-xs muted mt-1">For social work &amp; National Blindness Prevention</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <section class="py-24 bg-white border-t border-card-line relative z-10">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-14">
+                <p class="eyebrow mb-3">Academic Background</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">Education &amp; Certifications</h2>
+                <div class="rule w-24 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="font-serif text-xl mb-6 flex items-center gap-2"><i class="fas fa-graduation-cap teal"></i> Education</h3>
+                    <div class="space-y-5">
+                        <div class="card p-5 rounded-xl">
+                            <span class="teal text-sm font-semibold">2022 – 2025</span>
+                            <h4 class="text-lg font-semibold ink mt-1">Bachelor of Computer Applications (BCA)</h4>
+                            <p class="muted text-sm mt-1">Tula's Institute, Dehradun</p>
+                        </div>
+                        <div class="card p-5 rounded-xl">
+                            <span class="teal text-sm font-semibold">2021 – 2022</span>
+                            <h4 class="text-lg font-semibold ink mt-1">Diploma in Computer Application</h4>
+                            <p class="muted text-sm mt-1">Aspire IT Experts</p>
+                        </div>
+                        <div class="card p-5 rounded-xl">
+                            <span class="teal text-sm font-semibold">2021</span>
+                            <h4 class="text-lg font-semibold ink mt-1">Intermediate (12th)</h4>
+                            <p class="muted text-sm mt-1">K.P. Hindu Inter College</p>
+                        </div>
+                        <div class="card p-5 rounded-xl">
+                            <span class="teal text-sm font-semibold">2019</span>
+                            <h4 class="text-lg font-semibold ink mt-1">Matriculation (10th)</h4>
+                            <p class="muted text-sm mt-1">Dolphin Public School</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-serif text-xl mb-6 flex items-center gap-2"><i class="fas fa-certificate ochre"></i> Certifications</h3>
+                    <div class="space-y-5">
+                        <div class="card p-5 rounded-xl">
+                            <h4 class="text-lg font-semibold ink">Course on Computer Concepts (CCC)</h4>
+                            <p class="muted text-sm mt-1">NIELIT, Govt. of India</p>
+                        </div>
+                        <div class="card p-5 rounded-xl">
+                            <h4 class="text-lg font-semibold ink">WordPress Add-on Certification</h4>
+                            <p class="muted text-sm mt-1">Web Content Management</p>
+                        </div>
+                        <div class="card p-5 rounded-xl">
+                            <h4 class="text-lg font-semibold ink">Machine Learning (30 hrs)</h4>
+                            <p class="muted text-sm mt-1">Brillica Services — Microsoft &amp; Intel Partner Program</p>
+                        </div>
+                        <div class="card p-5 rounded-xl">
+                            <h4 class="text-lg font-semibold ink">Cyber Security</h4>
+                            <p class="muted text-sm mt-1">RCPL Centre of Excellence — Tula's Institute, Dehradun</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 relative z-10">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-14">
+                <p class="eyebrow mb-3">Get In Touch</p>
+                <h2 class="text-3xl sm:text-4xl font-serif">Let's talk <span class="teal italic">opportunities</span></h2>
+                <div class="rule w-24 mx-auto mt-4 mb-6"></div>
+                <p class="muted max-w-2xl mx-auto">
+                    Open to full-time and remote roles in Operations, Administration, Digital Marketing, or Product/App Development.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <a href="tel:+919453134901" class="group flex items-center p-5 card rounded-2xl hover:border-teal/50 transition-all duration-300">
+                    <div class="w-12 h-12 bg-ivory border border-card-line rounded-full flex items-center justify-center group-hover:border-teal/50 transition-colors">
+                        <i class="fas fa-phone fa-flip-horizontal muted group-hover:text-teal transition-colors"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs muted uppercase tracking-wider">Call</p>
+                        <h4 class="text-sm font-semibold ink">+91 94531 34901</h4>
+                    </div>
+                </a>
+
+                <a href="mailto:ayushrajmisra@gmail.com" class="group flex items-center p-5 card rounded-2xl hover:border-teal/50 transition-all duration-300">
+                    <div class="w-12 h-12 bg-ivory border border-card-line rounded-full flex items-center justify-center group-hover:border-teal/50 transition-colors">
+                        <i class="fas fa-envelope muted group-hover:text-teal transition-colors"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs muted uppercase tracking-wider">Email</p>
+                        <h4 class="text-sm font-semibold ink truncate max-w-[150px]">ayushrajmisra@gmail.com</h4>
+                    </div>
+                </a>
+
+                <a href="https://www.linkedin.com/in/misraayush" target="_blank" class="group flex items-center p-5 card rounded-2xl hover:border-teal/50 transition-all duration-300">
+                    <div class="w-12 h-12 bg-ivory border border-card-line rounded-full flex items-center justify-center group-hover:border-teal/50 transition-colors">
+                        <i class="fab fa-linkedin muted group-hover:text-teal transition-colors"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs muted uppercase tracking-wider">LinkedIn</p>
+                        <h4 class="text-sm font-semibold ink">/in/misraayush</h4>
+                    </div>
+                </a>
+
+                <a href="https://github.com/ayushrajmisra" target="_blank" class="group flex items-center p-5 card rounded-2xl hover:border-teal/50 transition-all duration-300">
+                    <div class="w-12 h-12 bg-ivory border border-card-line rounded-full flex items-center justify-center group-hover:border-teal/50 transition-colors">
+                        <i class="fab fa-github muted group-hover:text-teal transition-colors"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs muted uppercase tracking-wider">GitHub</p>
+                        <h4 class="text-sm font-semibold ink">/ayushrajmisra</h4>
+                    </div>
+                </a>
+
+                <a href="https://maps.google.com/?q=Pratapgarh,+Uttar+Pradesh" target="_blank" class="group flex items-center p-5 card rounded-2xl hover:border-teal/50 transition-all duration-300">
+                    <div class="w-12 h-12 bg-ivory border border-card-line rounded-full flex items-center justify-center group-hover:border-teal/50 transition-colors">
+                        <i class="fas fa-map-marker-alt muted group-hover:text-teal transition-colors"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs muted uppercase tracking-wider">Location</p>
+                        <h4 class="text-sm font-semibold ink">Pratapgarh, U.P.</h4>
+                    </div>
+                </a>
+
+                <a href="https://drive.google.com/file/d/19g9GQXTimPtDmYLa_kMufHEI7R2HR06P/view?usp=sharing" target="_blank" class="group flex items-center p-5 card rounded-2xl hover:border-ochre/50 transition-all duration-300">
+                    <div class="w-12 h-12 bg-ivory border border-card-line rounded-full flex items-center justify-center group-hover:border-ochre/50 transition-colors">
+                        <i class="fas fa-file-arrow-down muted group-hover:text-ochre transition-colors"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-xs muted uppercase tracking-wider">Résumé</p>
+                        <h4 class="text-sm font-semibold ink">Download PDF</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white py-8 border-t border-card-line text-center relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.linkedin.com/in/misraayush" class="muted hover:text-teal transition-colors text-xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/ayushrajmisra" class="muted hover:text-teal transition-colors text-xl"><i class="fab fa-github"></i></a>
+                <a href="mailto:ayushrajmisra@gmail.com" class="muted hover:text-teal transition-colors text-xl"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="muted text-sm">© 2026 Ayush Misra. Hindi &amp; English.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</div>
